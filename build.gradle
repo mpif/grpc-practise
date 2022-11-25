@@ -1,0 +1,61 @@
+
+
+
+allprojects {
+    group = 'grpc-practise'
+    version = '1.0.0-SNAPSHOT'
+    repositories {
+        maven {
+            url = uri('https://maven.aliyun.com/nexus/content/groups/public/')
+        }
+    }
+}
+
+
+
+subprojects {
+    apply plugin: 'java'
+    compileJava.options.encoding = 'UTF-8'
+    compileTestJava.options.encoding = 'UTF-8'
+    sourceCompatibility = '1.8'
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+        // Try to turn them all off automatically
+        options.compilerArgs << '-Xlint:none'
+        options.compilerArgs << '-nowarn' // same as '-Xlint:none'
+        // Turn them off manually
+        options.compilerArgs << '-Xlint:-auxiliaryclass'
+        options.compilerArgs << '-Xlint:-cast'
+        options.compilerArgs << '-Xlint:-classfile'
+        options.compilerArgs << '-Xlint:-deprecation'
+        options.compilerArgs << '-Xlint:-dep-ann'
+        options.compilerArgs << '-Xlint:-divzero'
+        options.compilerArgs << '-Xlint:-empty'
+        options.compilerArgs << '-Xlint:-fallthrough'
+        options.compilerArgs << '-Xlint:-finally'
+        options.compilerArgs << '-Xlint:-options'
+        options.compilerArgs << '-Xlint:-overloads'
+        options.compilerArgs << '-Xlint:-overrides'
+        options.compilerArgs << '-Xlint:-path'
+        options.compilerArgs << '-Xlint:-processing'
+        options.compilerArgs << '-Xlint:-rawtypes'
+        options.compilerArgs << '-Xlint:-serial'
+        options.compilerArgs << '-Xlint:-static'
+        options.compilerArgs << '-Xlint:-try'
+        options.compilerArgs << '-Xlint:-unchecked'
+        options.compilerArgs << '-Xlint:-varargs'
+    }
+     dependencies {
+        implementation 'org.projectlombok:lombok:1.18.12'
+        annotationProcessor 'org.projectlombok:lombok:1.18.12'
+     }
+}
+
+//ext{
+//    //整数版本号不需要单引号
+//    COMPILE_SDK_VERSION = 23
+//    //这种带.的版本号需要用单引号
+//    GRPC_VERSION='1.51.0'
+//}
+
+apply from: "globalConfig.gradle"

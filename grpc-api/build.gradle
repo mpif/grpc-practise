@@ -1,0 +1,25 @@
+apply plugin: 'java-library'
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+sourceSets {
+    main {
+        resources.srcDirs = ['src/main/resources', 'src/main/java']
+    }
+}
+
+//def GRPC_VERSION='1.51.0'
+
+dependencies {
+// grpc-stub、grpc-netty-shaded、grpc-protobuf这3个jar是grpc的服务端和客户端都需要的，且都会自动引入grpc-api
+    //在gradle.properties文件中定义GRPC_VERSION变量
+//    api "io.grpc:grpc-stub:${GRPC_VERSION}"
+//    api "io.grpc:grpc-netty-shaded:${GRPC_VERSION}"
+//    api "io.grpc:grpc-protobuf:${GRPC_VERSION}"
+
+    //在根目录下的build.gradle文件中定义GRPC_VERSION变量
+    api "io.grpc:grpc-stub:$rootProject.GRPC_VERSION"
+    api "io.grpc:grpc-netty-shaded:$rootProject.GRPC_VERSION"
+    api "io.grpc:grpc-protobuf:$rootProject.GRPC_VERSION"
+
+//    api 'com.google.code.gson:gson:2.10'
+}

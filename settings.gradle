@@ -1,0 +1,4 @@
+rootProject.name = 'grpc-practise'
+include 'grpc-api'
+include 'grpc-producer'
+include 'grpc-consumer'

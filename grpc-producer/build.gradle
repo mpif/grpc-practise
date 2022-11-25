@@ -1,0 +1,60 @@
+apply plugin: 'java'
+apply plugin: 'com.google.protobuf'
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+sourceSets {
+    main {
+        resources.srcDirs = ['src/main/resources', 'src/main/java', 'src/main/proto']
+    }
+}
+
+buildscript {
+    repositories {
+//        mavenCentral()
+        maven {
+            url = uri('https://maven.aliyun.com/nexus/content/groups/public/')
+        }
+    }
+    dependencies {
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.14'
+    }
+}
+
+
+
+dependencies {
+    implementation project(':grpc-api')
+
+    runtimeOnly 'com.google.protobuf:protobuf-gradle-plugin:0.9.1'
+    runtimeOnly 'com.google.protobuf:protobuf-java-util:3.21.9'
+
+    implementation 'junit:junit:4.12'
+}
+
+//def GRPC_VERSION='1.51.0'
+
+protobuf {
+    protoc {
+        artifact = 'com.google.protobuf:protoc:3.21.9'
+    }
+    plugins {
+        grpc {
+            //在gradle.properties文件中定义GRPC_VERSION变量
+//            artifact = "io.grpc:protoc-gen-grpc-java:${GRPC_VERSION}"
+            //在根目录下的build.gradle文件中定义GRPC_VERSION变量
+            artifact = "io.grpc:protoc-gen-grpc-java:$rootProject.GRPC_VERSION"
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+        }
+        all().each { task ->
+            task.builtins {
+//              生成什么语言的源代码, go、java等
+//                go {}
+                java {}
+            }
+        }
+    }
+}

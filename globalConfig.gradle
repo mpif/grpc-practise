@@ -1,0 +1,7 @@
+ext {
+    //整数版本号不需要单引号
+    COMPILE_SDK_VERSION = 23
+
+    //这种带.的版本号需要用单引号
+    GRPC_VERSION='1.51.0'
+}
